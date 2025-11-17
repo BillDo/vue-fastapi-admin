@@ -62,22 +62,28 @@ class HttpAuditLogMiddleware(BaseHTTPMiddleware):
 
         # 获取请求体
         if request.method in ["POST", "PUT", "PATCH"]:
-            try:
-                body = await request.json()
-                args.update(body)
-            except json.JSONDecodeError:
+            content_type = request.headers.get("content-type", "").lower()
+            # 仅当 Content-Type 为 JSON 时尝试解析 JSON，避免对文件上传触发解码错误
+            if "application/json" in content_type:
                 try:
-                    body = await request.form()
-                    # args.update(body)
-                    for k, v in body.items():
-                        if hasattr(v, "filename"):  # 文件上传行为
-                            args[k] = v.filename
-                        elif isinstance(v, list) and v and hasattr(v[0], "filename"):
-                            args[k] = [file.filename for file in v]
-                        else:
-                            args[k] = v
+                    body = await request.json()
+                    if isinstance(body, dict):
+                        args.update(body)
+                except Exception:
+                    # 宽松处理：任何解析异常都跳过，不影响后续
+                    pass
+            # 表单或文件上传：不要在中间件里消费 multipart 流，避免下游依赖体解析失败（422）
+            elif ("multipart/form-data" in content_type):
+                # 可选：记录标记，不读取流
+                args["_has_multipart"] = True
+            elif ("application/x-www-form-urlencoded" in content_type):
+                try:
+                    form = await request.form()
+                    for k, v in form.items():
+                        args[k] = v
                 except Exception:
                     pass
+            # 其他类型直接忽略请求体
 
         return args
 

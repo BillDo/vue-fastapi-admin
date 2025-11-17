@@ -1,0 +1,44 @@
+{
+  "api": {
+    "menu": {
+      "system": "Hệ thống"
+    },
+    "depts": {
+      "list_summary": "Xem danh sách phòng ban",
+      "get_summary": "Xem phòng ban",
+      "create_summary": "Tạo phòng ban",
+      "update_summary": "Cập nhật phòng ban",
+      "delete_summary": "Xóa phòng ban",
+      "name_description": "Tên phòng ban",
+      "id_description": "ID phòng ban"
+    },
+    "products": {
+      "list_summary": "Xem danh sách sản phẩm",
+      "get_summary": "Xem sản phẩm",
+      "create_summary": "Tạo sản phẩm",
+      "update_summary": "Cập nhật sản phẩm",
+      "delete_summary": "Xóa sản phẩm",
+      "name_description": "Tên sản phẩm",
+      "category_description": "Danh mục sản phẩm",
+      "category_id_description": "ID danh mục sản phẩm",
+      "page_description": "Số trang",
+      "page_size_description": "Số lượng mỗi trang",
+      "is_active_description": "Kích hoạt",
+      "id_description": "ID sản phẩm"
+    },
+    "categories": {
+      "list_summary": "Xem danh sách danh mục",
+      "get_summary": "Xem danh mục",
+      "active_summary": "Lấy danh mục đang kích hoạt",
+      "create_summary": "Tạo danh mục",
+      "update_summary": "Cập nhật danh mục",
+      "delete_summary": "Xóa danh mục",
+      "name_description": "Tên danh mục",
+      "page_description": "Số trang",
+      "page_size_description": "Số lượng mỗi trang",
+      "is_active_description": "Kích hoạt",
+      "id_description": "ID danh mục"
+    }
+  }
+}
+

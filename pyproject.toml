@@ -25,7 +25,9 @@ dependencies = [
     "uvicorn==0.34.0",
     "h11==0.14.0",
     "aerich==0.8.1",
-    "aiosqlite==0.20.0",
+    "aiosqlite==0.20.0",  # SQLite driver
+    "asyncpg==0.29.0",  # PostgreSQL driver
+    "asyncmy==0.2.9",  # MySQL/MariaDB driver
     "anyio==4.8.0",
     "argon2-cffi-bindings==21.2.0",
     "asyncclick==8.1.8",
@@ -64,7 +66,6 @@ dependencies = [
     "typer==0.15.1",
     "typing-extensions==4.12.2",
     "ujson==5.10.0",
-    "uvloop==0.21.0",
     "watchfiles==1.0.4",
     "websockets==14.1",
     "pyproject-toml>=0.1.0",

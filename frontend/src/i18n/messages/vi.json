@@ -1,0 +1,50 @@
+{
+  "nav": {
+    "about": "Về Chúng Tôi",
+    "products": "Sản Phẩm",
+    "services": "Dịch Vụ",
+    "news": "Tin Tức/Sự Kiện",
+    "contact": "Liên Hệ"
+  },
+  "home": {
+    "hero": {
+      "title": "Giải Pháp Chuyên Nghiệp Cho Doanh Nghiệp",
+      "subtitle": "Doanh nghiệp chuyên nghiệp và đa dạng hóa chuyên về các giải pháp toàn diện"
+    },
+    "coreValues": {
+      "title": "Giá Trị Cốt Lõi",
+      "description": "Cam kết về sự xuất sắc của chúng tôi thúc đẩy mọi thứ chúng tôi làm"
+    },
+    "services": {
+      "title": "Dịch Vụ",
+      "description": "Lập kế hoạch dự án và dịch vụ kỹ thuật toàn diện"
+    }
+  },
+  "about": {
+    "title": "Về Chúng Tôi",
+    "description": "Tìm hiểu thêm về công ty và sứ mệnh của chúng tôi"
+  },
+  "products": {
+    "title": "Sản Phẩm",
+    "description": "Khám phá danh mục sản phẩm toàn diện của chúng tôi"
+  },
+  "services": {
+    "title": "Dịch Vụ",
+    "description": "Dịch vụ kỹ thuật và giải pháp chuyên nghiệp"
+  },
+  "news": {
+    "title": "Tin Tức & Sự Kiện",
+    "description": "Cập nhật tin tức và sự kiện mới nhất của chúng tôi"
+  },
+  "contact": {
+    "title": "Liên Hệ",
+    "description": "Liên hệ với chúng tôi",
+    "tel": "Điện thoại",
+    "fax": "Fax",
+    "email": "Email"
+  },
+  "footer": {
+    "copyright": "Bản quyền © 2025. Bảo lưu mọi quyền."
+  }
+}
+

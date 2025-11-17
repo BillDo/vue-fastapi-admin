@@ -23,71 +23,69 @@ class Settings(BaseSettings):
     SECRET_KEY: str = "3488a63e1765035d386f05409663f55c83bfae3b3c61a932744b20ad14244dcf"  # openssl rand -hex 32
     JWT_ALGORITHM: str = "HS256"
     JWT_ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7 day
-    TORTOISE_ORM: dict = {
-        "connections": {
-            # SQLite configuration
-            "sqlite": {
+
+    # Database configuration - can be set via environment variables
+    # Options: sqlite, mysql, postgres
+    # Note: PostgreSQL is now the default
+    # To use SQLite, set DB_TYPE=sqlite
+    # To use MySQL, set DB_TYPE=mysql, DB_PORT=3306, DB_USER=root
+    DB_TYPE: str = "postgres"
+    DB_HOST: str = "localhost"
+    DB_PORT: int = 5432  # PostgreSQL default port
+    DB_USER: str = "postgres"  # PostgreSQL default user
+    DB_PASSWORD: str = "admin"
+    DB_NAME: str = "my_website"
+    DB_FILE_PATH: str = f"{BASE_DIR}/db.sqlite3"
+
+    @property
+    def TORTOISE_ORM(self) -> dict:
+        """Generate TORTOISE_ORM config based on DB_TYPE"""
+        connections = {}
+        default_connection = "postgres"
+        
+        if self.DB_TYPE == "mysql":
+            connections["mysql"] = {
+                "engine": "tortoise.backends.mysql",
+                "credentials": {
+                    "host": self.DB_HOST,
+                    "port": self.DB_PORT,
+                    "user": self.DB_USER,
+                    "password": self.DB_PASSWORD,
+                    "database": self.DB_NAME,
+                },
+            }
+            default_connection = "mysql"
+        elif self.DB_TYPE == "postgres":
+            connections["postgres"] = {
+                "engine": "tortoise.backends.asyncpg",
+                "credentials": {
+                    "host": self.DB_HOST,
+                    "port": self.DB_PORT,
+                    "user": self.DB_USER,
+                    "password": self.DB_PASSWORD,
+                    "database": self.DB_NAME,
+                },
+            }
+            default_connection = "postgres"
+        else:  # sqlite (fallback)
+            connections["sqlite"] = {
                 "engine": "tortoise.backends.sqlite",
-                "credentials": {"file_path": f"{BASE_DIR}/db.sqlite3"},  # Path to SQLite database file
+                "credentials": {"file_path": self.DB_FILE_PATH},
+            }
+            default_connection = "sqlite"
+
+        return {
+            "connections": connections,
+            "apps": {
+                "models": {
+                    "models": ["app.models", "aerich.models"],
+                    "default_connection": default_connection,
+                },
             },
-            # MySQL/MariaDB configuration
-            # Install with: tortoise-orm[asyncmy]
-            # "mysql": {
-            #     "engine": "tortoise.backends.mysql",
-            #     "credentials": {
-            #         "host": "localhost",  # Database host address
-            #         "port": 3306,  # Database port
-            #         "user": "yourusername",  # Database username
-            #         "password": "yourpassword",  # Database password
-            #         "database": "yourdatabase",  # Database name
-            #     },
-            # },
-            # PostgreSQL configuration
-            # Install with: tortoise-orm[asyncpg]
-            # "postgres": {
-            #     "engine": "tortoise.backends.asyncpg",
-            #     "credentials": {
-            #         "host": "localhost",  # Database host address
-            #         "port": 5432,  # Database port
-            #         "user": "yourusername",  # Database username
-            #         "password": "yourpassword",  # Database password
-            #         "database": "yourdatabase",  # Database name
-            #     },
-            # },
-            # MSSQL/Oracle configuration
-            # Install with: tortoise-orm[asyncodbc]
-            # "oracle": {
-            #     "engine": "tortoise.backends.asyncodbc",
-            #     "credentials": {
-            #         "host": "localhost",  # Database host address
-            #         "port": 1433,  # Database port
-            #         "user": "yourusername",  # Database username
-            #         "password": "yourpassword",  # Database password
-            #         "database": "yourdatabase",  # Database name
-            #     },
-            # },
-            # SQLServer configuration
-            # Install with: tortoise-orm[asyncodbc]
-            # "sqlserver": {
-            #     "engine": "tortoise.backends.asyncodbc",
-            #     "credentials": {
-            #         "host": "localhost",  # Database host address
-            #         "port": 1433,  # Database port
-            #         "user": "yourusername",  # Database username
-            #         "password": "yourpassword",  # Database password
-            #         "database": "yourdatabase",  # Database name
-            #     },
-            # },
-        },
-        "apps": {
-            "models": {
-                "models": ["app.models", "aerich.models"],
-                "default_connection": "sqlite",
-            },
-        },
-        "use_tz": False,  # Whether to use timezone-aware datetimes
-        "timezone": "Asia/Shanghai",  # Timezone setting
-    }
+            "use_tz": False,  # Whether to use timezone-aware datetimes
+            "timezone": "Asia/Shanghai",  # Timezone setting
+        }
+
     DATETIME_FORMAT: str = "%Y-%m-%d %H:%M:%S"
 
 

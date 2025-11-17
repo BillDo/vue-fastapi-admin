@@ -1,0 +1,41 @@
+{
+  "api": {
+    "depts": {
+      "list_summary": "View department list",
+      "get_summary": "View department",
+      "create_summary": "Create department",
+      "update_summary": "Update department",
+      "delete_summary": "Delete department",
+      "name_description": "Department name",
+      "id_description": "Department ID"
+    },
+    "products": {
+      "list_summary": "View product list",
+      "get_summary": "View product",
+      "create_summary": "Create product",
+      "update_summary": "Update product",
+      "delete_summary": "Delete product",
+      "name_description": "Product name",
+      "category_description": "Product category",
+      "category_id_description": "Product category ID",
+      "page_description": "Page number",
+      "page_size_description": "Items per page",
+      "is_active_description": "Is active",
+      "id_description": "Product ID"
+    },
+    "categories": {
+      "list_summary": "View category list",
+      "get_summary": "View category",
+      "active_summary": "Get active categories",
+      "create_summary": "Create category",
+      "update_summary": "Update category",
+      "delete_summary": "Delete category",
+      "name_description": "Category name",
+      "page_description": "Page number",
+      "page_size_description": "Items per page",
+      "is_active_description": "Is active",
+      "id_description": "Category ID"
+    }
+  }
+}
+

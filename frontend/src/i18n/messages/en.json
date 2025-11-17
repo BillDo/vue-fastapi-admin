@@ -1,0 +1,50 @@
+{
+  "nav": {
+    "about": "About Us",
+    "products": "Products",
+    "services": "Services",
+    "news": "News/Events",
+    "contact": "Contact Us"
+  },
+  "home": {
+    "hero": {
+      "title": "Professional Solutions for Your Business",
+      "subtitle": "A professional and diversified enterprise specializing in comprehensive solutions"
+    },
+    "coreValues": {
+      "title": "Core Values",
+      "description": "Our commitment to excellence drives everything we do"
+    },
+    "services": {
+      "title": "Services",
+      "description": "Comprehensive project planning and technical services"
+    }
+  },
+  "about": {
+    "title": "About Us",
+    "description": "Learn more about our company and mission"
+  },
+  "products": {
+    "title": "Products",
+    "description": "Explore our comprehensive product range"
+  },
+  "services": {
+    "title": "Services",
+    "description": "Professional technical services and solutions"
+  },
+  "news": {
+    "title": "News & Events",
+    "description": "Stay updated with our latest news and events"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "description": "Get in touch with us",
+    "tel": "Tel",
+    "fax": "Fax",
+    "email": "Email"
+  },
+  "footer": {
+    "copyright": "Copyright © 2025. All Rights Reserved."
+  }
+}
+

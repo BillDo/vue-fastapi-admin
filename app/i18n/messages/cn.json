@@ -1,0 +1,41 @@
+{
+  "api": {
+    "depts": {
+      "list_summary": "查看部门列表",
+      "get_summary": "查看部门",
+      "create_summary": "创建部门",
+      "update_summary": "更新部门",
+      "delete_summary": "删除部门",
+      "name_description": "部门名称",
+      "id_description": "部门ID"
+    },
+    "products": {
+      "list_summary": "查看产品列表",
+      "get_summary": "查看产品",
+      "create_summary": "创建产品",
+      "update_summary": "更新产品",
+      "delete_summary": "删除产品",
+      "name_description": "产品名称",
+      "category_description": "产品分类",
+      "category_id_description": "产品分类ID",
+      "page_description": "页码",
+      "page_size_description": "每页数量",
+      "is_active_description": "是否启用",
+      "id_description": "产品ID"
+    },
+    "categories": {
+      "list_summary": "查看分类列表",
+      "get_summary": "查看分类",
+      "active_summary": "获取激活的分类",
+      "create_summary": "创建分类",
+      "update_summary": "更新分类",
+      "delete_summary": "删除分类",
+      "name_description": "分类名称",
+      "page_description": "页码",
+      "page_size_description": "每页数量",
+      "is_active_description": "是否启用",
+      "id_description": "分类ID"
+    }
+  }
+}
+

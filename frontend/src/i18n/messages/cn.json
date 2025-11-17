@@ -1,0 +1,50 @@
+{
+  "nav": {
+    "about": "关于我们",
+    "products": "产品",
+    "services": "服务",
+    "news": "新闻/活动",
+    "contact": "联系我们"
+  },
+  "home": {
+    "hero": {
+      "title": "专业商业解决方案",
+      "subtitle": "专注于综合解决方案的专业多元化企业"
+    },
+    "coreValues": {
+      "title": "核心价值",
+      "description": "我们对卓越的承诺驱动着我们所做的一切"
+    },
+    "services": {
+      "title": "服务",
+      "description": "全面的项目规划和技术服务"
+    }
+  },
+  "about": {
+    "title": "关于我们",
+    "description": "了解更多关于我们公司和使命的信息"
+  },
+  "products": {
+    "title": "产品",
+    "description": "探索我们全面的产品范围"
+  },
+  "services": {
+    "title": "服务",
+    "description": "专业技术服务和解决方案"
+  },
+  "news": {
+    "title": "新闻与活动",
+    "description": "了解我们最新的新闻和活动"
+  },
+  "contact": {
+    "title": "联系我们",
+    "description": "与我们取得联系",
+    "tel": "电话",
+    "fax": "传真",
+    "email": "邮箱"
+  },
+  "footer": {
+    "copyright": "版权所有 © 2025。保留所有权利。"
+  }
+}
+

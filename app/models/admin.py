@@ -87,3 +87,29 @@ class AuditLog(BaseModel, TimestampMixin):
     response_time = fields.IntField(default=0, description="响应时间(单位ms)", index=True)
     request_args = fields.JSONField(null=True, description="请求参数")
     response_body = fields.JSONField(null=True, description="返回数据")
+
+
+class Category(BaseModel, TimestampMixin):
+    name = fields.CharField(max_length=100, unique=True, description="分类名称", index=True)
+    description = fields.CharField(max_length=1000, null=True, description="分类描述")
+    icon = fields.CharField(max_length=100, null=True, description="分类图标")
+    image_url = fields.CharField(max_length=500, null=True, description="分类图片URL")
+    is_active = fields.BooleanField(default=True, description="是否启用", index=True)
+    order = fields.IntField(default=0, description="排序", index=True)
+
+    class Meta:
+        table = "category"
+
+
+class Product(BaseModel, TimestampMixin):
+    name = fields.CharField(max_length=200, description="产品名称", index=True)
+    description = fields.CharField(max_length=2000, null=True, description="产品描述")
+    category_id = fields.IntField(null=True, description="产品分类ID", index=True)
+    category = fields.CharField(max_length=100, null=True, description="产品分类(兼容字段)", index=True)
+    image_url = fields.CharField(max_length=500, null=True, description="产品图片URL")
+    features = fields.JSONField(null=True, description="产品特性列表")
+    is_active = fields.BooleanField(default=True, description="是否启用", index=True)
+    order = fields.IntField(default=0, description="排序", index=True)
+
+    class Meta:
+        table = "product"

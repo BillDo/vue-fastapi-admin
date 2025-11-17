@@ -28,6 +28,7 @@ from app.settings.config import settings
 
 from .middlewares import BackGroundTaskMiddleware, HttpAuditLogMiddleware
 
+from app.i18n import t
 
 def make_middlewares():
     middleware = [

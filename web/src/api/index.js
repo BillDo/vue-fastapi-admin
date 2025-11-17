@@ -39,4 +39,23 @@ export default {
   deleteDept: (params = {}) => request.delete('/dept/delete', { params }),
   // auditlog
   getAuditLogList: (params = {}) => request.get('/auditlog/list', { params }),
+  // products
+  getProductList: (params = {}) => request.get('/product/list', { params }),
+  getProductById: (params = {}) => request.get('/product/get', { params }),
+  createProduct: (data = {}) => request.post('/product/create', data),
+  updateProduct: (data = {}) => request.post('/product/update', data),
+  deleteProduct: (params = {}) => request.delete('/product/delete', { params }),
+  // categories
+  getCategoryList: (params = {}) => request.get('/category/list', { params }),
+  getActiveCategories: () => request.get('/category/active'),
+  getCategoryById: (params = {}) => request.get('/category/get', { params }),
+  createCategory: (data = {}) => request.post('/category/create', data),
+  updateCategory: (data = {}) => request.post('/category/update', data),
+  deleteCategory: (params = {}) => request.delete('/category/delete', { params }),
+  // file upload
+  uploadFile: (file) => {
+    const form = new FormData()
+    form.append('file', file)
+    return request.post('/file/upload', form, { headers: { 'Content-Type': 'multipart/form-data' } })
+  },
 }
