@@ -7,24 +7,24 @@ from app.schemas.depts import *
 router = APIRouter()
 
 
-@router.get("/list", summary="查看部门列表")
+@router.get("/list", summary="View department list")
 async def list_dept(
-    name: str = Query(None, description="部门名称"),
+    name: str = Query(None, description="Department name"),
 ):
     dept_tree = await dept_controller.get_dept_tree(name)
     return Success(data=dept_tree)
 
 
-@router.get("/get", summary="查看部门")
+@router.get("/get", summary="View department")
 async def get_dept(
-    id: int = Query(..., description="部门ID"),
+    id: int = Query(..., description="Department ID"),
 ):
     dept_obj = await dept_controller.get(id=id)
     data = await dept_obj.to_dict()
     return Success(data=data)
 
 
-@router.post("/create", summary="创建部门")
+@router.post("/create", summary="Create department")
 async def create_dept(
     dept_in: DeptCreate,
 ):
@@ -32,7 +32,7 @@ async def create_dept(
     return Success(msg="Created Successfully")
 
 
-@router.post("/update", summary="更新部门")
+@router.post("/update", summary="Update department")
 async def update_dept(
     dept_in: DeptUpdate,
 ):
@@ -40,9 +40,9 @@ async def update_dept(
     return Success(msg="Update Successfully")
 
 
-@router.delete("/delete", summary="删除部门")
+@router.delete("/delete", summary="Delete department")
 async def delete_dept(
-    dept_id: int = Query(..., description="部门ID"),
+    dept_id: int = Query(..., description="Department ID"),
 ):
     await dept_controller.delete_dept(dept_id=dept_id)
-    return Success(msg="Deleted Success")
+    return Success(msg="Deleted Successfully")

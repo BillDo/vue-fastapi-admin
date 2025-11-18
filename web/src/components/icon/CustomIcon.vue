@@ -1,7 +1,7 @@
 <script setup>
-/** 自定义图标 */
+/** Custom Icons */
 const props = defineProps({
-  /** 图标名称(assets/svg下的文件名) */
+  /** Icon name (filename under assets/svg) */
   icon: {
     type: String,
     required: true,

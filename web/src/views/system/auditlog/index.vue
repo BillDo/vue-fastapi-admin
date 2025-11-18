@@ -9,7 +9,7 @@ import CrudTable from '@/components/table/CrudTable.vue'
 
 import api from '@/api'
 
-defineOptions({ name: '审计日志' })
+defineOptions({ name: 'Audit Log' })
 
 const $table = ref(null)
 const queryItems = ref({})
@@ -24,7 +24,7 @@ function formatTimestamp(timestamp) {
   const pad = (num) => num.toString().padStart(2, '0')
 
   const year = date.getFullYear()
-  const month = pad(date.getMonth() + 1) // 月份从0开始，所以需要+1
+  const month = pad(date.getMonth() + 1) // Months are zero-based, so we need to add 1
   const day = pad(date.getDate())
   const hours = pad(date.getHours())
   const minutes = pad(date.getMinutes())
@@ -33,17 +33,17 @@ function formatTimestamp(timestamp) {
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
 }
 
-// 获取当天的开始时间的时间戳
+// Get the timestamp for the start of the current day
 function getStartOfDayTimestamp() {
   const now = new Date()
-  now.setHours(0, 0, 0, 0) // 将小时、分钟、秒和毫秒都设置为0
+  now.setHours(0, 0, 0, 0) // Set hours, minutes, seconds, and milliseconds to 0
   return now.getTime()
 }
 
-// 获取当天的结束时间的时间戳
+// Get the timestamp for the end of the current day
 function getEndOfDayTimestamp() {
   const now = new Date()
-  now.setHours(23, 59, 59, 999) // 将小时设置为23，分钟设置为59，秒设置为59，毫秒设置为999
+  now.setHours(23, 59, 59, 999) // Set hours to 23, minutes to 59, seconds to 59, milliseconds to 999
   return now.getTime()
 }
 
@@ -85,55 +85,55 @@ function formatJSON(data) {
       ? JSON.stringify(JSON.parse(data), null, 2)
       : JSON.stringify(data, null, 2)
   } catch (e) {
-    return data || '无数据'
+    return data || 'No data'
   }
 }
 
 const columns = [
   {
-    title: '用户名称',
+    title: 'Username',
     key: 'username',
     width: 'auto',
     align: 'center',
     ellipsis: { tooltip: true },
   },
   {
-    title: '接口概要',
+    title: 'API Summary',
     key: 'summary',
     align: 'center',
     width: 'auto',
     ellipsis: { tooltip: true },
   },
   {
-    title: '功能模块',
+    title: 'Module',
     key: 'module',
     align: 'center',
     width: 'auto',
     ellipsis: { tooltip: true },
   },
   {
-    title: '请求方法',
+    title: 'Request Method',
     key: 'method',
     align: 'center',
     width: 'auto',
     ellipsis: { tooltip: true },
   },
   {
-    title: '请求路径',
+    title: 'Request Path',
     key: 'path',
     align: 'center',
     width: 'auto',
     ellipsis: { tooltip: true },
   },
   {
-    title: '状态码',
+    title: 'Status Code',
     key: 'status',
     align: 'center',
     width: 'auto',
     ellipsis: { tooltip: true },
   },
   {
-    title: '请求体',
+    title: 'Request Body',
     key: 'request_body',
     align: 'center',
     width: 80,
@@ -161,7 +161,7 @@ const columns = [
     },
   },
   {
-    title: '响应体',
+    title: 'Response Body',
     key: 'response_body',
     align: 'center',
     width: 80,
@@ -189,14 +189,14 @@ const columns = [
     },
   },
   {
-    title: '响应时间(s)',
+    title: 'Response Time (s)',
     key: 'response_time',
     align: 'center',
     width: 'auto',
     ellipsis: { tooltip: true },
   },
   {
-    title: '操作时间',
+    title: 'Operation Time',
     key: 'created_at',
     align: 'center',
     width: 'auto',
@@ -206,9 +206,9 @@ const columns = [
 </script>
 
 <template>
-  <!-- 业务页面 -->
+  <!-- Business Page -->
   <CommonPage>
-    <!-- 表格 -->
+    <!-- Table -->
     <CrudTable
       ref="$table"
       v-model:query-items="queryItems"
@@ -216,66 +216,66 @@ const columns = [
       :get-data="api.getAuditLogList"
     >
       <template #queryBar>
-        <QueryBarItem label="用户名称" :label-width="70">
+        <QueryBarItem label="Username" :label-width="70">
           <NInput
             v-model:value="queryItems.username"
             clearable
             type="text"
-            placeholder="请输入用户名称"
+            placeholder="Please enter the username"
             @keypress.enter="$table?.handleSearch()"
           />
         </QueryBarItem>
-        <QueryBarItem label="功能模块" :label-width="70">
+        <QueryBarItem label="Module" :label-width="70">
           <NInput
             v-model:value="queryItems.module"
             clearable
             type="text"
-            placeholder="请输入功能模块"
+            placeholder="Please enter the module"
             @keypress.enter="$table?.handleSearch()"
           />
         </QueryBarItem>
-        <QueryBarItem label="接口概要" :label-width="70">
+        <QueryBarItem label="API Summary" :label-width="70">
           <NInput
             v-model:value="queryItems.summary"
             clearable
             type="text"
-            placeholder="请输入接口概要"
+            placeholder="Please enter the API summary"
             @keypress.enter="$table?.handleSearch()"
           />
         </QueryBarItem>
-        <QueryBarItem label="请求方法" :label-width="70">
+        <QueryBarItem label="Request Method" :label-width="70">
           <NSelect
             v-model:value="queryItems.method"
             style="width: 180px"
             :options="methodOptions"
             clearable
-            placeholder="请选择请求方法"
+            placeholder="Please select the request method"
           />
         </QueryBarItem>
-        <QueryBarItem label="请求路径" :label-width="70">
+        <QueryBarItem label="Request Path" :label-width="70">
           <NInput
             v-model:value="queryItems.path"
             clearable
             type="text"
-            placeholder="请输入请求路径"
+            placeholder="Please enter the request path"
             @keypress.enter="$table?.handleSearch()"
           />
         </QueryBarItem>
-        <QueryBarItem label="状态码" :label-width="60">
+        <QueryBarItem label="Status Code" :label-width="60">
           <NInput
             v-model:value="queryItems.status"
             clearable
             type="text"
-            placeholder="请输入状态码"
+            placeholder="Please enter the status code"
             @keypress.enter="$table?.handleSearch()"
           />
         </QueryBarItem>
-        <QueryBarItem label="操作时间" :label-width="70">
+        <QueryBarItem label="Operation Time" :label-width="70">
           <NDatePicker
             v-model:value="datetimeRange"
             type="datetimerange"
             clearable
-            placeholder="请选择时间范围"
+            placeholder="Please select the time range"
             @update:value="handleDateRangeChange"
           />
         </QueryBarItem>

@@ -52,15 +52,15 @@ class HttpAuditLogMiddleware(BaseHTTPMiddleware):
         self.methods = methods
         self.exclude_paths = exclude_paths
         self.audit_log_paths = ["/api/v1/auditlog/list"]
-        self.max_body_size = 1024 * 1024  # 1MB 响应体大小限制
+        self.max_body_size = 1024 * 1024  # 1MB Response size limit
 
     async def get_request_args(self, request: Request) -> dict:
         args = {}
-        # 获取查询参数
+        # Get query parameters
         for key, value in request.query_params.items():
             args[key] = value
 
-        # 获取请求体
+        # Get request body
         if request.method in ["POST", "PUT", "PATCH"]:
             try:
                 body = await request.json()
@@ -70,7 +70,7 @@ class HttpAuditLogMiddleware(BaseHTTPMiddleware):
                     body = await request.form()
                     # args.update(body)
                     for k, v in body.items():
-                        if hasattr(v, "filename"):  # 文件上传行为
+                        if hasattr(v, "filename"):  # File upload behavior
                             args[k] = v.filename
                         elif isinstance(v, list) and v and hasattr(v[0], "filename"):
                             args[k] = [file.filename for file in v]
@@ -82,7 +82,7 @@ class HttpAuditLogMiddleware(BaseHTTPMiddleware):
         return args
 
     async def get_response_body(self, request: Request, response: Response) -> Any:
-        # 检查Content-Length
+        # Check Content-Length
         content_length = response.headers.get("content-length")
         if content_length and int(content_length) > self.max_body_size:
             return {"code": 0, "msg": "Response too large to log", "data": None}
@@ -102,7 +102,7 @@ class HttpAuditLogMiddleware(BaseHTTPMiddleware):
         if any(request.url.path.startswith(path) for path in self.audit_log_paths):
             try:
                 data = self.lenient_json(body)
-                # 只保留基本信息，去除详细的响应内容
+                # Only keep basic information, remove detailed response content
                 if isinstance(data, dict):
                     data.pop("response_body", None)
                     if "data" in data and isinstance(data["data"], list):
@@ -128,10 +128,10 @@ class HttpAuditLogMiddleware(BaseHTTPMiddleware):
 
     async def get_request_log(self, request: Request, response: Response) -> dict:
         """
-        根据request和response对象获取对应的日志记录数据
+        Get the corresponding log record data based on the request and response objects
         """
         data: dict = {"path": request.url.path, "status": response.status_code, "method": request.method}
-        # 路由信息
+        # Route information
         app: FastAPI = request.app
         for route in app.routes:
             if (
@@ -141,7 +141,7 @@ class HttpAuditLogMiddleware(BaseHTTPMiddleware):
             ):
                 data["module"] = ",".join(route.tags)
                 data["summary"] = route.summary
-        # 获取用户信息
+        # Get user information
         try:
             token = request.headers.get("token")
             user_obj = None

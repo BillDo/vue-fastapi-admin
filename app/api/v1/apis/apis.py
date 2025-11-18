@@ -8,13 +8,13 @@ from app.schemas.apis import *
 router = APIRouter()
 
 
-@router.get("/list", summary="查看API列表")
+@router.get("/list", summary="View API list")
 async def list_api(
-    page: int = Query(1, description="页码"),
-    page_size: int = Query(10, description="每页数量"),
-    path: str = Query(None, description="API路径"),
-    summary: str = Query(None, description="API简介"),
-    tags: str = Query(None, description="API模块"),
+    page: int = Query(1, description="Page number"),
+    page_size: int = Query(10, description="Page size"),
+    path: str = Query(None, description="API path"),
+    summary: str = Query(None, description="API summary"),
+    tags: str = Query(None, description="API module"),
 ):
     q = Q()
     if path:
@@ -28,7 +28,7 @@ async def list_api(
     return SuccessExtra(data=data, total=total, page=page, page_size=page_size)
 
 
-@router.get("/get", summary="查看Api")
+@router.get("/get", summary="View API")
 async def get_api(
     id: int = Query(..., description="Api"),
 ):
@@ -37,7 +37,7 @@ async def get_api(
     return Success(data=data)
 
 
-@router.post("/create", summary="创建Api")
+@router.post("/create", summary="Create API")
 async def create_api(
     api_in: ApiCreate,
 ):
@@ -45,7 +45,7 @@ async def create_api(
     return Success(msg="Created Successfully")
 
 
-@router.post("/update", summary="更新Api")
+@router.post("/update", summary="Update API")
 async def update_api(
     api_in: ApiUpdate,
 ):
@@ -53,15 +53,15 @@ async def update_api(
     return Success(msg="Update Successfully")
 
 
-@router.delete("/delete", summary="删除Api")
+@router.delete("/delete", summary="Delete API")
 async def delete_api(
-    api_id: int = Query(..., description="ApiID"),
+    api_id: int = Query(..., description="API ID"),
 ):
     await api_controller.remove(id=api_id)
-    return Success(msg="Deleted Success")
+    return Success(msg="Deleted Successfully")
 
 
-@router.post("/refresh", summary="刷新API列表")
+@router.post("/refresh", summary="Refresh API list")
 async def refresh_api():
     await api_controller.refresh_api()
-    return Success(msg="OK")
+    return Success(msg="Refreshed Successfully")

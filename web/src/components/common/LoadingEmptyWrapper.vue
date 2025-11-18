@@ -30,30 +30,30 @@ import { ref, computed, nextTick, watch, onUnmounted } from 'vue'
 
 defineOptions({ name: 'LoadingEmptyWrapper' })
 
-const NETWORK_ERROR_MSG = '网络似乎开了小差~'
+const NETWORK_ERROR_MSG = 'The network seems to be malfunctioning.'
 
 const props = {
   loading: false,
   empty: false,
   loadingSize: 'medium',
   placeholderClass: 'bg-white dark:bg-dark transition-background-color duration-300 ease-in-out',
-  emptyDesc: '暂无数据',
+  emptyDesc: 'No data available',
   iconClass: 'text-320px text-primary',
   descClass: 'text-16px text-#666',
   showNetworkReload: false,
 }
 
-// 网络状态
+// Network status
 const network = ref(window.navigator.onLine)
 const reloadFlag = ref(true)
 
-// 数据是否为空
+// Data is empty
 const isEmpty = computed(() => props.empty && !props.loading && network.value)
 
 const showPlaceholder = computed(() => props.loading || isEmpty.value || !network.value)
 
 const networkErrorDesc = computed(() =>
-  props.showNetworkReload ? `${NETWORK_ERROR_MSG}, 点击重试` : NETWORK_ERROR_MSG,
+  props.showNetworkReload ? `${NETWORK_ERROR_MSG}, click to retry` : NETWORK_ERROR_MSG,
 )
 
 function handleReload() {
@@ -67,7 +67,7 @@ function handleReload() {
 const stopHandle = watch(
   () => props.loading,
   (newValue) => {
-    // 结束加载判断一下网络状态
+    // After loading ends, check the network status
     if (!newValue) {
       network.value = window.navigator.onLine
     }
