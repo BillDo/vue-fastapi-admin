@@ -1,14 +1,14 @@
 import vue from '@vitejs/plugin-vue'
 
 /**
- * * unocss插件，原子css
+ * * unocss plugin, atomic CSS
  * https://github.com/antfu/unocss
  */
 import Unocss from 'unocss/vite'
 
-// rollup打包分析插件
+// rollup build analysis plugin
 import visualizer from 'rollup-plugin-visualizer'
-// 压缩
+// compression
 import viteCompression from 'vite-plugin-compression'
 
 import { configHtmlPlugin } from './html'

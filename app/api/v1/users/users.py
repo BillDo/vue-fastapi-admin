@@ -13,13 +13,13 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
-@router.get("/list", summary="查看用户列表")
+@router.get("/list", summary="View user list")
 async def list_user(
-    page: int = Query(1, description="页码"),
-    page_size: int = Query(10, description="每页数量"),
-    username: str = Query("", description="用户名称，用于搜索"),
-    email: str = Query("", description="邮箱地址"),
-    dept_id: int = Query(None, description="部门ID"),
+    page: int = Query(1, description="Page number"),
+    page_size: int = Query(10, description="Items per page"),
+    username: str = Query("", description="User name for filtering"),
+    email: str = Query("", description="Email address for filtering"),
+    dept_id: int = Query(None, description="Department ID"),
 ):
     q = Q()
     if username:
@@ -37,16 +37,16 @@ async def list_user(
     return SuccessExtra(data=data, total=total, page=page, page_size=page_size)
 
 
-@router.get("/get", summary="查看用户")
+@router.get("/get", summary="View user")
 async def get_user(
-    user_id: int = Query(..., description="用户ID"),
+    user_id: int = Query(..., description="User ID"),
 ):
     user_obj = await user_controller.get(id=user_id)
     user_dict = await user_obj.to_dict(exclude_fields=["password"])
     return Success(data=user_dict)
 
 
-@router.post("/create", summary="创建用户")
+@router.post("/create", summary="Create user")
 async def create_user(
     user_in: UserCreate,
 ):
@@ -58,7 +58,7 @@ async def create_user(
     return Success(msg="Created Successfully")
 
 
-@router.post("/update", summary="更新用户")
+@router.post("/update", summary="Update user")
 async def update_user(
     user_in: UserUpdate,
 ):
@@ -67,15 +67,15 @@ async def update_user(
     return Success(msg="Updated Successfully")
 
 
-@router.delete("/delete", summary="删除用户")
+@router.delete("/delete", summary="Delete user")
 async def delete_user(
-    user_id: int = Query(..., description="用户ID"),
+    user_id: int = Query(..., description="User ID"),
 ):
     await user_controller.remove(id=user_id)
     return Success(msg="Deleted Successfully")
 
 
-@router.post("/reset_password", summary="重置密码")
-async def reset_password(user_id: int = Body(..., description="用户ID", embed=True)):
+@router.post("/reset_password", summary="Reset password")
+async def reset_password(user_id: int = Body(..., description="User ID", embed=True)):
     await user_controller.reset_password(user_id)
-    return Success(msg="密码已重置为123456")
+    return Success(msg="Password has been reset to 123456")

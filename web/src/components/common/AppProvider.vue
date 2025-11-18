@@ -1,8 +1,8 @@
 <template>
   <n-config-provider
     wh-full
-    :locale="zhCN"
-    :date-locale="dateZhCN"
+    :locale="viVN"
+    :date-locale="dateViVN"
     :theme="appStore.isDark ? darkTheme : undefined"
     :theme-overrides="naiveThemeOverrides"
   >
@@ -22,8 +22,8 @@
 <script setup>
 import { defineComponent, h } from 'vue'
 import {
-  zhCN,
-  dateZhCN,
+  viVN,
+  dateViVN,
   darkTheme,
   useLoadingBar,
   useDialog,
@@ -46,7 +46,7 @@ function setupCssVar() {
   }
 }
 
-// 挂载naive组件的方法至window, 以便在全局使用
+// Mount the naive component to the window so that it can be used globally.
 function setupNaiveTools() {
   window.$loadingBar = useLoadingBar()
   window.$notification = useNotification()

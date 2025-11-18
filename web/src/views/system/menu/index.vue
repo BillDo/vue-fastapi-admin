@@ -24,13 +24,13 @@ import { formatDate, renderIcon } from '@/utils'
 import { useCRUD } from '@/composables'
 import api from '@/api'
 
-defineOptions({ name: '菜单管理' })
+defineOptions({ name: 'Menu Management' })
 
 const $table = ref(null)
 const queryItems = ref({})
 const vPermission = resolveDirective('permission')
 
-// 表单初始化内容
+// Form initial content
 const initForm = {
   order: 1,
   keepalive: true,
@@ -47,7 +47,7 @@ const {
   modalForm,
   modalFormRef,
 } = useCRUD({
-  name: '菜单',
+  name: 'Menu',
   initForm,
   doCreate: api.createMenu,
   doDelete: api.deleteMenu,
@@ -60,15 +60,15 @@ onMounted(() => {
   getTreeSelect()
 })
 
-// 是否展示 "菜单类型"
+// Whether to show "Menu Type"
 const showMenuType = ref(false)
 const menuOptions = ref([])
 
 const columns = [
   { title: 'ID', key: 'id', width: 50, ellipsis: { tooltip: true }, align: 'center' },
-  { title: '菜单名称', key: 'name', width: 80, ellipsis: { tooltip: true }, align: 'center' },
+  { title: 'Menu Name', key: 'name', width: 80, ellipsis: { tooltip: true }, align: 'center' },
   {
-    title: '菜单类型',
+    title: 'Menu Type',
     key: 'menu_type',
     width: 80,
     align: 'center',
@@ -86,12 +86,12 @@ const columns = [
       return h(
         NTag,
         { type: 'primary', round: round, bordered: bordered },
-        { default: () => (row.menu_type === 'catalog' ? '目录' : '菜单') }
+        { default: () => (row.menu_type === 'catalog' ? 'Catalog' : 'Menu') }
       )
     },
   },
   {
-    title: '图标',
+    title: 'Icon',
     key: 'icon',
     width: 40,
     align: 'center',
@@ -99,12 +99,12 @@ const columns = [
       return h(TheIcon, { icon: row.icon, size: 20 })
     },
   },
-  { title: '排序', key: 'order', width: 40, ellipsis: { tooltip: true }, align: 'center' },
-  { title: '访问路径', key: 'path', width: 80, ellipsis: { tooltip: true }, align: 'center' },
-  { title: '跳转路径', key: 'redirect', width: 80, ellipsis: { tooltip: true }, align: 'center' },
-  { title: '组件路径', key: 'component', width: 80, ellipsis: { tooltip: true }, align: 'center' },
+  { title: 'Order', key: 'order', width: 40, ellipsis: { tooltip: true }, align: 'center' },
+  { title: 'Access Path', key: 'path', width: 80, ellipsis: { tooltip: true }, align: 'center' },
+  { title: 'Redirect Path', key: 'redirect', width: 80, ellipsis: { tooltip: true }, align: 'center' },
+  { title: 'Component Path', key: 'component', width: 80, ellipsis: { tooltip: true }, align: 'center' },
   {
-    title: '保活',
+    title: 'Keepalive',
     key: 'keepalive',
     width: 40,
     align: 'center',
@@ -118,7 +118,7 @@ const columns = [
     },
   },
   {
-    title: '隐藏',
+    title: 'Hidden',
     key: 'is_hidden',
     width: 40,
     align: 'center',
@@ -132,7 +132,7 @@ const columns = [
     },
   },
   {
-    title: '创建日期',
+    title: 'Created Date',
     key: 'created_at',
     width: 80,
     align: 'center',
@@ -141,7 +141,7 @@ const columns = [
     },
   },
   {
-    title: '操作',
+    title: 'Actions',
     key: 'actions',
     width: 120,
     align: 'center',
@@ -163,7 +163,7 @@ const columns = [
                 handleAdd()
               },
             },
-            { default: () => '子菜单', icon: renderIcon('material-symbols:add', { size: 16 }) }
+            { default: () => 'Submenu', icon: renderIcon('material-symbols:add', { size: 16 }) }
           ),
           [[vPermission, 'post/api/v1/menu/create']]
         ),
@@ -180,7 +180,7 @@ const columns = [
               },
             },
             {
-              default: () => '编辑',
+              default: () => 'Edit',
               icon: renderIcon('material-symbols:edit-outline', { size: 16 }),
             }
           ),
@@ -200,43 +200,43 @@ const columns = [
                     size: 'tiny',
                     quaternary: true,
                     type: 'error',
-                    style: `display: ${row.children && row.children.length > 0 ? 'none' : ''};`, //有子菜单不允许删除
+                    style: `display: ${row.children && row.children.length > 0 ? 'none' : ''};`, // Submenus cannot be deleted
                   },
                   {
-                    default: () => '删除',
+                    default: () => 'Delete',
                     icon: renderIcon('material-symbols:delete-outline', { size: 16 }),
                   }
                 ),
                 [[vPermission, 'delete/api/v1/menu/delete']]
               ),
-            default: () => h('div', {}, '确定删除该菜单吗?'),
+            default: () => h('div', {}, 'Are you sure you want to delete this menu?'),
           }
         ),
       ]
     },
   },
 ]
-// 修改是否keepalive
+// Modify whether keepalive is enabled
 async function handleUpdateKeepalive(row) {
   if (!row.id) return
   row.publishing = true
   row.keepalive = row.keepalive === false ? true : false
   await api.updateMenu(row)
   row.publishing = false
-  $message?.success(row.keepalive ? '已开启' : '已关闭')
+  $message?.success(row.keepalive ? 'Enabled' : 'Disabled')
 }
 
-// 修改是否隐藏
+// Modify whether hidden
 async function handleUpdateHidden(row) {
   if (!row.id) return
   row.publishing = true
   row.is_hidden = row.is_hidden === false ? true : false
   await api.updateMenu(row)
   row.publishing = false
-  $message?.success(row.is_hidden ? '已隐藏' : '已取消隐藏')
+  $message?.success(row.is_hidden ? 'Hidden' : 'Unhidden')
 }
 
-// 新增菜单(可选目录)
+// Add new menu (optional directory)
 function handleClickAdd() {
   initForm.parent_id = 0
   initForm.menu_type = 'catalog'
@@ -249,22 +249,22 @@ function handleClickAdd() {
 
 async function getTreeSelect() {
   const { data } = await api.getMenus()
-  const menu = { id: 0, name: '根目录', children: [] }
+  const menu = { id: 0, name: 'Root Directory', children: [] }
   menu.children = data
   menuOptions.value = [menu]
 }
 </script>
 
 <template>
-  <!-- 业务页面 -->
-  <CommonPage show-footer title="菜单列表">
+  <!-- Business Page -->
+  <CommonPage show-footer title="Menu List">
     <template #action>
       <NButton v-permission="'post/api/v1/menu/create'" type="primary" @click="handleClickAdd">
-        <TheIcon icon="material-symbols:add" :size="18" class="mr-5" />新建根菜单
+        <TheIcon icon="material-symbols:add" :size="18" class="mr-5" />New Root Menu
       </NButton>
     </template>
 
-    <!-- 表格 -->
+    <!-- Table -->
     <CrudTable
       ref="$table"
       v-model:query-items="queryItems"
@@ -275,14 +275,14 @@ async function getTreeSelect() {
     >
     </CrudTable>
 
-    <!-- 新增/编辑/查看 弹窗 -->
+    <!-- Add/Edit/View Modal -->
     <CrudModal
       v-model:visible="modalVisible"
       :title="modalTitle"
       :loading="modalLoading"
       @save="handleSave(getTreeSelect)"
     >
-      <!-- 表单 -->
+      <!-- Form -->
       <NForm
         ref="modalFormRef"
         label-placement="left"
@@ -290,13 +290,13 @@ async function getTreeSelect() {
         :label-width="80"
         :model="modalForm"
       >
-        <NFormItem label="菜单类型" path="menu_type">
+        <NFormItem label="Menu Type" path="menu_type">
           <NRadioGroup v-model:value="modalForm.menu_type">
-            <NRadio label="目录" value="catalog" />
-            <NRadio label="菜单" value="menu" />
+            <NRadio label="Table of contents" value="catalog" />
+            <NRadio label="Menu" value="menu" />
           </NRadioGroup>
         </NFormItem>
-        <NFormItem label="上级菜单" path="parent_id">
+        <NFormItem label="Parent Menu" path="parent_id">
           <NTreeSelect
             v-model:value="modalForm.parent_id"
             key-field="id"
@@ -306,49 +306,49 @@ async function getTreeSelect() {
           />
         </NFormItem>
         <NFormItem
-          label="菜单名称"
+          label="Menu Name"
           path="name"
           :rule="{
             required: true,
-            message: '请输入唯一菜单名称',
+            message: 'Please enter a unique menu name',
             trigger: ['input', 'blur'],
           }"
         >
-          <NInput v-model:value="modalForm.name" placeholder="请输入唯一菜单名称" />
+          <NInput v-model:value="modalForm.name" placeholder="Please enter a unique menu name" />
         </NFormItem>
         <NFormItem
-          label="访问路径"
+          label="Access Path"
           path="path"
           :rule="{
             required: true,
-            message: '请输入访问路径',
+            message: 'Please enter the access path',
             trigger: ['blur'],
           }"
         >
-          <NInput v-model:value="modalForm.path" placeholder="请输入访问路径" />
+          <NInput v-model:value="modalForm.path" placeholder="Please enter the access path" />
         </NFormItem>
-        <NFormItem v-if="modalForm.menu_type === 'menu'" label="组件路径" path="component">
+        <NFormItem v-if="modalForm.menu_type === 'menu'" label="Component Path" path="component">
           <NInput
             v-model:value="modalForm.component"
-            placeholder="请输入组件路径，例如：/system/user"
+            placeholder="Please enter the component path, e.g., /system/user"
           />
         </NFormItem>
-        <NFormItem label="跳转路径" path="redirect">
+        <NFormItem label="Redirect Path" path="redirect">
           <NInput
             v-model:value="modalForm.redirect"
             :disabled="modalForm.parent_id !== 0"
             :placeholder="
-              modalForm.parent_id !== 0 ? '只有一级菜单可以设置跳转路径' : '请输入跳转路径'
+              modalForm.parent_id !== 0 ? 'Only first-level menus can set redirect paths' : 'Please enter the redirect path'
             "
           />
         </NFormItem>
-        <NFormItem label="菜单图标" path="icon">
+        <NFormItem label="Menu Icon" path="icon">
           <IconPicker v-model:value="modalForm.icon" />
         </NFormItem>
-        <NFormItem label="显示排序" path="order">
+        <NFormItem label="Display Order" path="order">
           <NInputNumber v-model:value="modalForm.order" :min="1" />
         </NFormItem>
-        <NFormItem label="是否隐藏" path="is_hidden">
+        <NFormItem label="Hidden" path="is_hidden">
           <NSwitch v-model:value="modalForm.is_hidden" />
         </NFormItem>
         <NFormItem label="KeepAlive" path="keepalive">

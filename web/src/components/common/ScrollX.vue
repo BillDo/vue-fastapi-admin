@@ -50,10 +50,10 @@ function handleMouseWheel(e) {
   const wrapperWidth = wrapper.value?.offsetWidth
   const contentWidth = content.value?.offsetWidth
   /**
-   * @wheelDelta 平行滚动的值 >0： 右移  <0: 左移
-   * @translateX 内容translateX的值
-   * @wrapperWidth 容器的宽度
-   * @contentWidth 内容的宽度
+   * @wheelDelta Horizontal scrolling value >0: Shift right; <0: Shift left
+   * @translateX The value of content translateX
+   * @wrapperWidth The width of the container
+   * @contentWidth The width of the content
    */
   if (wheelDelta < 0) {
     if (wrapperWidth > contentWidth && translateX.value < -10) return
@@ -92,13 +92,13 @@ function handleScroll(x, width) {
   const contentWidth = content.value?.offsetWidth
   if (contentWidth <= wrapperWidth) return
 
-  // 当 x 小于可视范围的最小值时
+  // When x is less than the minimum visible range
   if (x < -translateX.value + 150) {
     translateX.value = -(x - 150)
     resetTranslateX(wrapperWidth, contentWidth)
   }
 
-  // 当 x 大于可视范围的最大值时
+  // When x is greater than the maximum visible range
   if (x + width > -translateX.value + wrapperWidth) {
     translateX.value = wrapperWidth - (x + width)
     resetTranslateX(wrapperWidth, contentWidth)

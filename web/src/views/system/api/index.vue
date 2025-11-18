@@ -44,12 +44,12 @@ onMounted(() => {
 
 async function handleRefreshApi() {
   await $dialog.confirm({
-    title: '提示',
+    title: 'hint',
     type: 'warning',
-    content: '此操作会根据后端 app.routes 进行路由更新，确定继续刷新 API 操作？',
+    content: 'This operation will update routes based on the backend app.routes. Are you sure you want to continue refreshing the API?',
     async confirm() {
       await api.refreshApi()
-      $message.success('刷新完成')
+      $message.success('Refresh completed')
       $table.value?.handleSearch()
     },
   })
@@ -59,28 +59,28 @@ const addAPIRules = {
   path: [
     {
       required: true,
-      message: '请输入API路径',
+      message: 'Please enter the API path',
       trigger: ['input', 'blur', 'change'],
     },
   ],
   method: [
     {
       required: true,
-      message: '请输入请求方式',
+      message: 'Please enter the request method',
       trigger: ['input', 'blur', 'change'],
     },
   ],
   summary: [
     {
       required: true,
-      message: '请输入API简介',
+      message: 'Please enter the API summary',
       trigger: ['input', 'blur', 'change'],
     },
   ],
   tags: [
     {
       required: true,
-      message: '请输入Tags',
+      message: 'Please enter Tags',
       trigger: ['input', 'blur', 'change'],
     },
   ],
@@ -88,21 +88,21 @@ const addAPIRules = {
 
 const columns = [
   {
-    title: 'API路径',
+    title: 'API Path',
     key: 'path',
     width: 'auto',
     align: 'center',
     ellipsis: { tooltip: true },
   },
   {
-    title: '请求方式',
+    title: 'Request Method',
     key: 'method',
     align: 'center',
     width: 'auto',
     ellipsis: { tooltip: true },
   },
   {
-    title: 'API简介',
+    title: 'API Summary',
     key: 'summary',
     width: 'auto',
     align: 'center',
@@ -116,7 +116,7 @@ const columns = [
     ellipsis: { tooltip: true },
   },
   {
-    title: '操作',
+    title: 'Actions',
     key: 'actions',
     width: 'auto',
     align: 'center',
@@ -136,7 +136,7 @@ const columns = [
               },
             },
             {
-              default: () => '编辑',
+              default: () => 'Edit',
               icon: renderIcon('material-symbols:edit', { size: 16 }),
             }
           ),
@@ -159,13 +159,13 @@ const columns = [
                     style: 'margin-right: 8px;',
                   },
                   {
-                    default: () => '删除',
+                    default: () => 'Delete',
                     icon: renderIcon('material-symbols:delete-outline', { size: 16 }),
                   }
                 ),
                 [[vPermission, 'delete/api/v1/api/delete']]
               ),
-            default: () => h('div', {}, '确定删除该API吗?'),
+            default: () => h('div', {}, 'Are you sure you want to delete this API?'),
           }
         ),
       ]
@@ -185,7 +185,7 @@ const columns = [
           type="primary"
           @click="handleAdd"
         >
-          <TheIcon icon="material-symbols:add" :size="18" class="mr-5" />新建API
+          <TheIcon icon="material-symbols:add" :size="18" class="mr-5" />New API
         </NButton>
         <NButton
           v-permission="'post/api/v1/api/refresh'"
@@ -193,7 +193,7 @@ const columns = [
           type="warning"
           @click="handleRefreshApi"
         >
-          <TheIcon icon="material-symbols:refresh" :size="18" class="mr-5" />刷新API
+          <TheIcon icon="material-symbols:refresh" :size="18" class="mr-5" />Refresh API
         </NButton>
       </div>
     </template>
@@ -205,21 +205,21 @@ const columns = [
       :get-data="api.getApis"
     >
       <template #queryBar>
-        <QueryBarItem label="路径" :label-width="40">
+        <QueryBarItem label="Path" :label-width="40">
           <NInput
             v-model:value="queryItems.path"
             clearable
             type="text"
-            placeholder="请输入API路径"
+            placeholder="Please enter the API path"
             @keypress.enter="$table?.handleSearch()"
           />
         </QueryBarItem>
-        <QueryBarItem label="API简介" :label-width="70">
+        <QueryBarItem label="API Summary" :label-width="70">
           <NInput
             v-model:value="queryItems.summary"
             clearable
             type="text"
-            placeholder="请输入API简介"
+            placeholder="Please enter the API summary"
             @keypress.enter="$table?.handleSearch()"
           />
         </QueryBarItem>
@@ -228,14 +228,14 @@ const columns = [
             v-model:value="queryItems.tags"
             clearable
             type="text"
-            placeholder="请输入API模块"
+            placeholder="Please enter the API tags"
             @keypress.enter="$table?.handleSearch()"
           />
         </QueryBarItem>
       </template>
     </CrudTable>
 
-    <!-- 新增/编辑 弹窗 -->
+    <!-- New/Edit Modal -->
     <CrudModal
       v-model:visible="modalVisible"
       :title="modalTitle"
@@ -250,17 +250,17 @@ const columns = [
         :model="modalForm"
         :rules="addAPIRules"
       >
-        <NFormItem label="API名称" path="path">
-          <NInput v-model:value="modalForm.path" clearable placeholder="请输入API路径" />
+        <NFormItem label="API Name" path="path">
+          <NInput v-model:value="modalForm.path" clearable placeholder="Please enter the API path" />
         </NFormItem>
-        <NFormItem label="请求方式" path="method">
-          <NInput v-model:value="modalForm.method" clearable placeholder="请输入请求方式" />
+        <NFormItem label="Method" path="method">
+          <NInput v-model:value="modalForm.method" clearable placeholder="Please enter the method" />
         </NFormItem>
-        <NFormItem label="API简介" path="summary">
-          <NInput v-model:value="modalForm.summary" clearable placeholder="请输入API简介" />
+        <NFormItem label="API Summary" path="summary">
+          <NInput v-model:value="modalForm.summary" clearable placeholder="Please enter the API summary" />
         </NFormItem>
         <NFormItem label="Tags" path="tags">
-          <NInput v-model:value="modalForm.tags" clearable placeholder="请输入Tags" />
+          <NInput v-model:value="modalForm.tags" clearable placeholder="Please enter the API tags" />
         </NFormItem>
       </NForm>
     </CrudModal>

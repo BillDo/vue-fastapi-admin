@@ -36,7 +36,7 @@ watchDebounced(
   <div class="w-full">
     <NPopover trigger="click" placement="bottom-start">
       <template #trigger>
-        <NInput v-model:value="choosed" placeholder="请输入图标名称" @update:value="filterIcons">
+        <NInput v-model:value="choosed" placeholder="Please enter the icon name." @update:value="filterIcons">
           <template #prefix>
             <span class="i-mdi:magnify text-18" />
           </template>
@@ -46,11 +46,11 @@ watchDebounced(
         </NInput>
       </template>
       <template #footer>
-        更多图标去
+        More icons at
         <a class="text-blue" target="_blank" href="https://icones.js.org/collection/all">
           Icones
         </a>
-        查看
+        check
       </template>
       <ul v-if="icons.length" class="h-150 w-300 overflow-y-scroll">
         <li
